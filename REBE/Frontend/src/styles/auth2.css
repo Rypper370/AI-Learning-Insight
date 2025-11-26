@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+    --background: #f5f7fa;
+    --surface: #fff;
+    --primary: #2d3e50;
+    --accent: #4f83ff;
+    --on-primary: #fff;
+    --text-main: #2d3e50;
+    --text-secondary: #6b7280;
+}
+
+[data-theme='dark'] {
+    --background: #1a1f25;
+    --surface: #232a33;
+    --primary: #4f83ff;
+    --accent: #8b5cf6;
+    --on-primary: #fff;
+    --text-main: #e6eaf0;
+    --text-secondary: #9ca3af;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+}
+
+body {
+    background: var(--background);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+header {
+    width: 100%;
+    background: var(--primary);
+    color: var(--on-primary);
+    text-align: center;
+    padding: 1.2rem 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+}
+
+.auth-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+/* CONTAINER */
+.auth-container {
+    position: relative;
+    width: 900px;
+    min-height: 500px;
+    background: var(--surface);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
+    transition: all .9s cubic-bezier(.55, .08, .68, .53);
+    max-width: 1440px;
+    margin: auto;
+}
+
+/* FORM SECTIONS DEFAULT (DESKTOP) */
+.form-section {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: var(--surface);
+    transition: all 1s cubic-bezier(.4, 0, .2, 1);
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) #e5e7eb;
+}
+
+.form-section h2 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: .5rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.login-section {
+    left: 0;
+    opacity: 1;
+    z-index: 2;
+    transform: translateX(0);
+    transition: opacity .8s ease, transform .9s cubic-bezier(.4, 0, .2, 1);
+}
+
+.register-section {
+    right: 0;
+    opacity: 0;
+    z-index: 1;
+    transform: translateX(50%) scale(.95);
+    transition: opacity .8s ease, transform .9s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* DOOR PANEL */
+.door-panel {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: var(--on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 1s cubic-bezier(.68, -.55, .27, 1.55);
+    z-index: 3;
+}
+
+.door-panel .door-content {
+    max-width: 80%;
+    padding: 2rem;
+    transition: transform .8s ease;
+}
+
+.door-panel h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.door-panel p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.door-panel button {
+    background: var(--on-primary);
+    color: var(--primary);
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.door-panel button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+}
+
+/* REGISTER MODE (DESKTOP) */
+.auth-container.register-mode .login-section {
+    transform: translateX(-50%) scale(.95);
+    opacity: 0;
+    z-index: 1;
+}
+
+.auth-container.register-mode .register-section {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 2;
+    transition-delay: .1s;
+}
+
+.auth-container.register-mode .door-panel {
+    transform: translateX(-100%) scale(1.02);
+}
+
+.auth-container.register-mode .door-panel .door-content {
+    transform: scale(1.05);
+}
+
+/* FORM ELEMENTS */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 320px;
+    animation: fadeInForm .6s ease both;
+}
+
+form label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+form input {
+    padding: 0.75rem 1rem;
+    width: 320px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+}
+
+form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+form button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeInForm {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.password-wrapper {
+    position: relative;
+    width: 320px;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 3rem;
+    height: 45px;
+}
+
+.password-toggle-icon {
+    all: unset;
+    position: absolute;
+    right: 12px;
+    top: 20%;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    background: none !important;
+    transform: none !important;
+}
+
+/* MOBILE */
+@media(max-width:768px) {
+    .auth-container {
+        width: 100%;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem 1rem;
+        box-shadow: none;
+    }
+
+    .form-section {
+        position: relative !important;
+        width: 100% !important;
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        opacity: 1 !important;
+        padding: 1.5rem 1rem;
+        z-index: 1 !important;
+    }
+
+    /* DEFAULT MOBILE: LOGIN ONLY */
+    .login-section {
+        order: 1;
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .register-section {
+        order: 3;
+        display: none !important;
+        opacity: 0 !important;
+        transform: none !important;
+        height: auto;
+        overflow: hidden;
+    }
+
+    /* DOOR PANEL */
+    .door-panel {
+        order: 2;
+        position: relative !important;
+        width: 100%;
+        left: auto !important;
+        transform: none !important;
+        height: auto;
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+        display: flex !important;
+        justify-content: center;
+    }
+
+    /* MOBILE MODE REGISTER */
+    .auth-container.register-mode .login-section {
+        display: none !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .auth-container.register-mode .door-panel {
+        order: 1;
+    }
+
+    .auth-container.register-mode .register-section {
+        display: block !important;
+        opacity: 1 !important;
+        order: 2;
+        padding: 1.5rem 1rem !important;
+        animation: fadeSlideUp .6s ease both;
+    }
+
+    /* Door panel animation in mobile */
+    @keyframes fadeSlideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* SMALL MOBILE */
+@media(max-width:480px) {
+    .auth-container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    header {
+        font-size: 1.2rem;
+        padding: .8rem;
+    }
+
+    .door-panel h3 {
+        font-size: 1.3rem;
+    }
+
+    form {
+        max-width: 100%;
+        gap: .8rem;
+    }
+
+    .password-wrapper {
+        width: 100%;
+    }
+
+    form input {
+        width: 100%;
+        padding: .65rem .9rem;
+    }
+}

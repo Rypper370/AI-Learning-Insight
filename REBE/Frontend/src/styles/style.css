@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+    --background: #f5f7fa;
+    --surface: #ffffff;
+    --primary: #2d3e50;
+    --accent: #4f83ff;
+    --on-primary: #ffffff;
+    --text-main: #2d3e50;
+    --text-secondary: #6b7280;
+}
+
+[data-theme='dark'] {
+        --background: #1a1f25;
+    --surface: #232a33;
+    --primary: #4f83ff;
+    --accent: #8b5cf6;
+    --on-primary: #ffffff;
+    --text-main: #e6eaf0;
+    --text-secondary: #9ca3af;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Quicksand", sans-serif;
+    background: var(--background);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+button {
+    font-family: inherit;
+    background: var(--primary);
+    color: var(--on-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow);
+    padding: 1.5rem;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+header {
+    background: var(--dominant);
+    color: var(--on-primary);
+    padding: 1.2rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    box-shadow: 0 3px 10px var(--shadow);
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+}
