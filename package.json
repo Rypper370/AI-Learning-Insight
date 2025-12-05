@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "backend": "npm start --prefix REBE/Backend",
+    "frontend": "npm run dev --prefix REBE/Frontend"
+  }
+}
