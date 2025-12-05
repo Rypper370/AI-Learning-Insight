@@ -1,0 +1,23 @@
+{
+  "name": "supabase-tensorflow-hapi",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "start:dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hapi/hapi": "^21.4.4",
+    "@supabase/supabase-js": "^2.86.0",
+    "dotenv": "^17.2.3",
+    "onnxruntime-node": "^1.23.2",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
