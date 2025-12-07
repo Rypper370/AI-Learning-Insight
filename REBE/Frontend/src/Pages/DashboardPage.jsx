@@ -1,3 +1,4 @@
+import ProfilePicture from '../components/Dashboard/ProfilePicture';
 import '../styles/dashboard.css';
 
 export default function DashboardPage({ profile, onLogout }) {
@@ -5,11 +6,7 @@ export default function DashboardPage({ profile, onLogout }) {
     <div className="dashboard-container">
       <aside className="side-container">
         <h2 className="headings-1">Welcome, {profile.name}!</h2>
-        <img
-          src="https://placehold.co/128"
-          alt=""
-          className="profile-picture-image"
-        />
+        <ProfilePicture size={128} />
         <p className="focus-font">
           Asal Kota:{' '}
           <span className="focus-font-heavierer">{profile.city}</span>

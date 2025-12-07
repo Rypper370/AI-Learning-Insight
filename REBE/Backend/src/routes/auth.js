@@ -1,4 +1,5 @@
 const { supabase, supabaseAdmin } = require('../config/supabase');
+const { resolveProfilePicture } = require('../utils/profile-pictures');
 const {
   validate,
   loginSchema,
@@ -127,12 +128,15 @@ const authRoutes = [
         if (publicError)
           return h.response({ error: publicError.message }).code(400);
 
+        const resolvedUrl = await resolveProfilePicture(publicUser.image_path);
+
         return h
           .response({
             data: {
               id: authData.user.id,
               email,
               ...publicUser,
+              resolved_profile_picture_url: resolvedUrl,
             },
           })
           .code(200);
