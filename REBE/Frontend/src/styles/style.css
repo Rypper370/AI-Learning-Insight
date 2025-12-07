@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
 :root {
@@ -11,7 +13,7 @@
 }
 
 [data-theme='dark'] {
-        --background: #1a1f25;
+    --background: #1a1f25;
     --surface: #232a33;
     --primary: #4f83ff;
     --accent: #8b5cf6;

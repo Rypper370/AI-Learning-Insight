@@ -12,7 +12,6 @@ function App() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile.data);
   const profileStatus = useSelector((state) => state.profile.status);
-  const profileError = useSelector((state) => state.profile.error);
   const [initializing, setInitializing] = React.useState(true);
 
   // theme state
@@ -114,10 +113,28 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<DashboardPage profile={profile} onLogout={onLogout}/>}
+              element={<DashboardPage profile={profile} onLogout={onLogout} />}
             />
           </Routes>
         </main>
+        <footer
+          style={{
+            background: 'oklch(0.955 0 154.36)',
+            color: 'black',
+            padding: '1.5rem',
+            textAlign: 'center',
+          }}
+        >
+          <p
+            style={{
+              fontFamily: 'Roboto, sans-serif',
+              fontWeight: 400,
+              letterSpacing: 0.67, // SIX SEVEN, RAHHH
+            }}
+          >
+            &copy; 2025 Dicoding Indonesia
+          </p>
+        </footer>
       </div>
     </ThemeProvider>
   );

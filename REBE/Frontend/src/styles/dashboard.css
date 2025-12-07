@@ -20,15 +20,19 @@
 }
 
 .headings-1 {
-  margin-block: 1em;
+  margin-block: 0.4445em;
   text-align: center;
 }
 
 .profile-picture-image {
-  margin-block: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 2em;
   width: 128px;
   height: 128px;
   border-radius: 50%;
+  border-style: solid;
+  border-width: 0.067rem;
+  border-color: color-mix(in oklab, #0a1a3c 67%, white 33%);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
   object-fit: cover;
