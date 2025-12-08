@@ -36,7 +36,6 @@ const cityAssignmentTracker = {
       });
 
       this.initialized = true;
-      console.log('City tracker initialized with', this.cities.size, 'cities');
     } catch (err) {
       console.error('Failed to initialize city tracker:', err);
       throw err;
