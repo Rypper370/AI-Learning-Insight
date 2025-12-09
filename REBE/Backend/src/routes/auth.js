@@ -130,6 +130,12 @@ const authRoutes = [
 
         const resolvedUrl = await resolveProfilePicture(publicUser.image_path);
 
+        const { data: levelRow } = await supabaseAdmin
+        .from('levels')
+        .select('required_xp')
+        .eq('id', publicUser.level)
+        .single();
+
         return h
           .response({
             data: {
@@ -137,6 +143,7 @@ const authRoutes = [
               email,
               ...publicUser,
               resolved_profile_picture_url: resolvedUrl,
+              required_xp: levelRow?.required_xp ?? 0
             },
           })
           .code(200);

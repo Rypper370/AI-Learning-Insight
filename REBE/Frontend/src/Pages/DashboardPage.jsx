@@ -1,4 +1,5 @@
 import ProfilePicture from '../components/Dashboard/ProfilePicture';
+import LevelBar from '../components/Dashboard/LevelBar';
 import '../styles/dashboard.css';
 
 export default function DashboardPage({ profile, onLogout }) {
@@ -15,9 +16,10 @@ export default function DashboardPage({ profile, onLogout }) {
           Email: <span className="hyperlink-style">{profile.email}</span>
         </p>
         <p className="focus-font">
-          Learning Type: <span>Consistent Learner</span>
+          Learner Type: <span>Consistent Learner</span>
         </p>
-        <p className="focus-font">Level:</p>
+        <p className="focus-font">Level: <span>{profile.level}</span></p>
+        <LevelBar value={profile.xp} max={profile.required_xp} />
         <button onClick={onLogout} className="button-hazard">
           Logout
         </button>
