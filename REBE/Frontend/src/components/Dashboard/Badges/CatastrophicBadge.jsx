@@ -7,8 +7,8 @@ export default function CatastrophicBadge({ size }) {
         <polygon
           fill="#ffffff"
           stroke="#000"
-          strokeWidth="5"
-          strokeMiterlimit="10"
+          strokeWidth="2.25"
+          vectorEffect="non-scaling-stroke"
           points="
             256 0
             312.46 171.32

@@ -2,6 +2,7 @@ import ProfilePicture from '../components/Dashboard/ProfilePicture';
 import LevelBar from '../components/Dashboard/LevelBar';
 import LevelProgressButton from '../components/Dashboard/LevelProgressButton';
 import '../styles/dashboard.css';
+import Leaderboard from '../components/Dashboard/Leaderboard';
 
 export default function DashboardPage({ profile, onLogout }) {
   return (
@@ -39,12 +40,7 @@ export default function DashboardPage({ profile, onLogout }) {
         </div>
 
         <div className="leaderboard-subcontainer">
-          <h3>Leaderboard</h3>
-          <ul>
-            <li>1. Alice - 1240 pts</li>
-            <li>2. Bob - 1190 pts</li>
-            <li>3. You - 1150 pts</li>
-          </ul>
+          <Leaderboard />
         </div>
       </main>
     </div>
