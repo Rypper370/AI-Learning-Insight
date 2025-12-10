@@ -2,6 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
+@font-face {
+    font-family: 'FredokaOne';
+    src: url('/fonts/FredokaOne-Regular.ttf') format('trueType');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --background: #f5f7fa;
     --surface: #ffffff;
@@ -57,7 +65,6 @@ button {
 }
 
 button:hover {
-    background: var(--accent);
     transform: translateY(-2px);
 }
 

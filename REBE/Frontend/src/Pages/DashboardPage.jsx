@@ -1,5 +1,6 @@
 import ProfilePicture from '../components/Dashboard/ProfilePicture';
 import LevelBar from '../components/Dashboard/LevelBar';
+import LevelProgressButton from '../components/Dashboard/LevelProgressButton';
 import '../styles/dashboard.css';
 
 export default function DashboardPage({ profile, onLogout }) {
@@ -18,8 +19,11 @@ export default function DashboardPage({ profile, onLogout }) {
         <p className="focus-font">
           Learner Type: <span>Consistent Learner</span>
         </p>
-        <p className="focus-font">Level: <span>{profile.level}</span></p>
+        <p className="focus-font">
+          Level: <span>{profile.level}</span>
+        </p>
         <LevelBar value={profile.xp} max={profile.required_xp} />
+        <LevelProgressButton profile={profile}/>
         <button onClick={onLogout} className="button-hazard">
           Logout
         </button>
