@@ -56,3 +56,73 @@ Dashboard ini ditujukan untuk mahasiswa, instruktur, dan tenaga kependidikan di 
 - Railway
 
 # 📁 Struktur Project
+```
+REBE/
+├── Backend/
+│   ├── src/
+│   │   ├── api/
+│   │   │   ├── authentications/
+│   │   │   │   ├── handler.js
+│   │   │   │   ├── index.js
+│   │   │   │   └── routes.js
+│   │   │   ├── users/
+│   │   │   │   ├── handler.js
+│   │   │   │   ├── index.js
+│   │   │   │   └── routes.js
+│   │   ├── exceptions/
+│   │   │   ├── AuthenticationError.js
+│   │   │   ├── AuthorizationError.js
+│   │   │   ├── ClientError.js
+│   │   │   ├── InvariantError.js
+│   │   │   └── NotFoundError.js
+│   │   ├── services/postgres/
+│   │   │   ├── AuthenticationsService.js
+│   │   │   └── UsersService.js
+│   │   ├── tokenize/
+│   │   │   └── TokenManager.js
+│   │   ├── validator/
+│   │   │   ├── authentications/
+│   │   │   │   ├── index.js
+│   │   │   │   └── schema.js
+│   │   │   ├── users/
+│   │   │   │   ├── index.js
+│   │   │   │   └── schema.js
+│   │   ├── server.js
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── package-lock.json
+│   └── package.json
+│
+├── Frontend/
+│   ├── public/
+│   │   ├── AI Learning Insight.png
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── Pages/
+│   │   │   ├── AuthPage.jsx
+│   │   │   └── assets/
+│   │   │       └── noacc.svg
+│   │   ├── components/
+│   │   │   ├── Loading.jsx
+│   │   │   ├── LoginInput.jsx
+│   │   │   └── RegisterInput.jsx
+│   │   ├── context/
+│   │   │   └── ThemeContext.jsx
+│   │   ├── styles/
+│   │   │   ├── auth2.css
+│   │   │   ├── loading.css
+│   │   │   └── styles.css
+│   │   ├── utils/
+│   │   │   ├── App.jsx
+│   │   │   └── main.jsx
+│   ├── README.md
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   └── vite.config.js
+│
+└── README.md
+
+```
+
