@@ -41,7 +41,7 @@ export default function Leaderboard() {
 
   return (
     <div className="leaderboard-subcontainer">
-      <h3>Leaderboard</h3>
+      <h3 style={{ marginBlock: 16}}>Leaderboard</h3>
 
       {loading && <p>Loading...</p>}
 
