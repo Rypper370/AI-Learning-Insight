@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { badgeRegistry } from './Badges/BadgeRegistry';
 
 function getHighestBadge(level) {
@@ -19,6 +20,8 @@ function normalizeName(name) {
 }
 
 export default function Leaderboard() {
+  const profile = useSelector((state) => state.profile.data);
+
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const perPage = 30;
@@ -60,9 +63,16 @@ export default function Leaderboard() {
 
               const highestBadge = getHighestBadge(u.level);
               const BadgeComponent = highestBadge?.component;
+              const isCurrentUser = Boolean(
+                profile && (u.id === profile.id || u.email === profile.email)
+              );
 
               return (
-                <tr key={u.id}>
+                <tr
+                  key={u.id}
+                  className={`leaderboard-row ${isCurrentUser ? 'current-user-row' : ''}`}
+                  aria-selected={isCurrentUser}
+                >
                   <td>{rank}</td>
                   <td className="player-cell">
                     <img
@@ -71,6 +81,7 @@ export default function Leaderboard() {
                       className="avatar"
                     />
                     <span>{normalizeName(u.name)}</span>
+                    {isCurrentUser && <span className="current-user-pill">You</span>}
                   </td>
                   <td>{u.city}</td>
                   <td className='level-badge-cell'>

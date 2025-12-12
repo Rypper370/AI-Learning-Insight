@@ -174,11 +174,50 @@
   background: #f0f6ff;
 }
 
+.leaderboard-row {
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.leaderboard-row.current-user-row {
+  background: linear-gradient(90deg, rgba(4, 149, 247, 0.08), rgba(4, 149, 247, 0.02));
+  box-shadow: inset 4px 0 0 0 #0495f7;
+  position: relative;
+}
+
+.leaderboard-row.current-user-row:hover {
+  background: linear-gradient(90deg, rgba(4, 149, 247, 0.12), rgba(4, 149, 247, 0.05));
+}
+
+.leaderboard-row.current-user-row::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 10px;
+  pointer-events: none;
+  border: 1px solid rgba(4, 149, 247, 0.2);
+}
+
 .player-cell {
   align-items: center;
   gap: 0.75rem;
   padding: 4rem;
   white-space: nowrap;
+}
+
+.current-user-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #0495f7;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(4, 149, 247, 0.25);
 }
 
 .avatar {
