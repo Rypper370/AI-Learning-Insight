@@ -7,7 +7,7 @@ export default function HorrificBadge({ size }) {
         <polygon
           fill="#000000"
           stroke="#9691FF"
-          strokeWidth="3.5"
+          strokeWidth="2.65"
           vectorEffect="non-scaling-stroke"
           points="
             -0.36 508.66

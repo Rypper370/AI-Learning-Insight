@@ -155,7 +155,7 @@ const authRoutes = [
   {
     method: 'POST',
     path: '/auth/logout',
-    handler: async (request, h) => {
+    handler: async (_, h) => {
       return h.response({ message: 'Logout success' }).code(200);
     },
   },

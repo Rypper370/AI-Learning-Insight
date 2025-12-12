@@ -6,6 +6,18 @@ function getHighestBadge(level) {
     return unlocked.length > 0 ? unlocked[unlocked.length - 1]: null;
 }
 
+function normalizeName(name) {
+  return name
+    .trim()
+    .split(/\s+/)
+    .map(word =>
+      word
+        .toLowerCase()
+        .replace(/^[a-z]/, c => c.toUpperCase())
+    )
+    .join(" ");
+}
+
 export default function Leaderboard() {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
@@ -54,11 +66,11 @@ export default function Leaderboard() {
                   <td>{rank}</td>
                   <td className="player-cell">
                     <img
-                      src={u.avatar_url || '/default-avatar.png'}
+                      src={u.resolved_profile_picture_url || '/default-avatar.png'}
                       alt=""
                       className="avatar"
                     />
-                    <span>{u.name}</span>
+                    <span>{normalizeName(u.name)}</span>
                   </td>
                   <td>{u.city}</td>
                   <td className='level-badge-cell'>

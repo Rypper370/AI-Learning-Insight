@@ -7,7 +7,7 @@ export default function UnrealBadge({ size }) {
         <polyline
           fill="#000000"
           stroke="#5751caff"
-          strokeWidth="3.5"
+          strokeWidth="2.75"
           vectorEffect="non-scaling-stroke"
           points="
           256 5.51
