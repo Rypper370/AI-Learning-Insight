@@ -1,7 +1,58 @@
-# AI Learning Insight
+# 🧠 Student Progress Dashboard
 
-AI Learning Insight merupakan Capstone Project dari Program Asah 2025 yang dipimpin oleh Dicoding dan Accenture.
 
----
+Sebuah platform analitik pembelajaran yang dirancang untuk membantu siswa, dosen, dan institusi memahami perkembangan akademik secara lebih komprehensif melalui visualisasi data dan insight berbasis analisis.
 
-AI Learning Insight berguna untuk menunjukkan wawasan (Insight) terkait gaya belajar siswa menggunakan model machine learning dan disajikan dengan React.
+
+# 📌 Deskripsi Proyek
+
+Student Progress Dashboard adalah website yang menampilkan perkembangan belajar siswa secara real-time melalui grafik, statistik, dan insight personal. Proyek ini dibuat untuk mengatasi masalah umum pada platform pembelajaran tradisional yang biasanya hanya menampilkan nilai akhir tanpa analisis mendalam mengenai:
+
+- Gamifikasi leveling 
+- Pola belajar siswa
+- Progres harian/mingguan
+- Perbandingan performa
+
+Dashboard ini ditujukan untuk mahasiswa, instruktur, dan tenaga kependidikan di bidang teknologi atau pendidikan modern.
+
+# 🚀 Fitur Utama
+
+- 📊 Dashboard Progres Siswa (grafik, ringkasan nilai, tracking performa)
+
+- 🧠 Analisis Gaya Belajar
+
+- 📝 Tracking Tugas & Aktivitas Pembelajaran
+
+- 🧾 Laporan dan Insight Otomatis
+
+- 🧩 Rekomendasi Materi Belajar Personal
+
+- 🔐 Manajemen User & Role (Admin, Dosen, Siswa)
+
+- ⚙️ API untuk integrasi data akademik
+
+# 🛠️ Tech Stack
+
+## Frontend:
+
+- React 
+
+- CSS
+
+## Backend:
+
+- Node.js (Hapi)
+
+- JWT Authentication
+
+## Database:
+
+- PostgreSQL 
+
+## Git & GitHub
+
+## Hosting 
+- Netlify
+- Railway
+
+# 📁 Struktur Project
