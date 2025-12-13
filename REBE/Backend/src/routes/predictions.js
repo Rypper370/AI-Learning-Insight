@@ -1,32 +1,108 @@
-const {
-  modelConfig,
-} = require('../models/ml-model');
+const { getModelConfig, getClassifier } = require('../models/ml-model');
+
+const { supabaseAdmin } = require('../config/supabase');
 
 const predictionRoutes = [
   {
     method: 'GET',
-    path: 'api/model/info',
-    handler: (request, h) => {
+    path: '/api/model/info',
+    handler: () => {
+      const modelConfig = getModelConfig();
       return {
         version: modelConfig.metadata.version,
         description: modelConfig.metadata.description,
         features: modelConfig.features_order,
-        learning_styles: Object.values(modelConfig.cluster_map),
+        learning_styles: Object.values(modelConfig.clusterMap),
       };
     },
   },
   {
+    method: 'GET',
+    path: '/api/predict/me',
+    handler: async (request, h) => {
+      try {
+        const { user_id } = request.query;
+
+        if (!user_id) {
+          return h
+            .response({ success: false, error: 'user_id is required' })
+            .code(400);
+        }
+
+        const { data, error } = await supabaseAdmin
+          .from('user_learning_predictions')
+          .select('*')
+          .eq('user_id', Number(user_id))
+          .single();
+
+        if (error) {
+          return h.response({ success: false, error: error.message }).code(404);
+        }
+
+        return {
+          success: true,
+          data,
+          timestamp: new Date().toISOString(),
+        };
+      } catch (err) {
+        return h.response({ success: false, error: err.message }).code(500);
+      }
+    },
+  },
+
+  {
     method: 'POST',
     path: '/api/predict',
-    handler: (request, h) => {
+    handler: (request) => {
+      const classifier = getClassifier();
+
+      const {
+        total_submissions,
+        avg_submission_rating,
+        avg_exam_score,
+        total_journeys_completed,
+        avg_speed_ratio,
+      } = request.payload;
+
+      const features = [
+        total_submissions,
+        avg_submission_rating,
+        avg_exam_score,
+        total_journeys_completed,
+        avg_speed_ratio,
+      ];
+
+      const result = classifier.predict(features);
+
+      return {
+        success: true,
+        data: result,
+        timestamp: new Date().toISOString(),
+      };
+    },
+  },
+
+  {
+    method: 'POST',
+    path: '/api/predict/save',
+    handler: async (request, h) => {
       try {
+        const classifier = getClassifier();
+
         const {
+          user_id,
           total_submissions,
           avg_submission_rating,
           avg_exam_score,
           total_journeys_completed,
           avg_speed_ratio,
         } = request.payload;
+
+        if (!user_id) {
+          return h
+            .response({ success: false, error: 'user_id is required' })
+            .code(400);
+        }
 
         const features = [
           total_submissions,
@@ -38,83 +114,57 @@ const predictionRoutes = [
 
         const result = classifier.predict(features);
 
+        const { error } = await supabaseAdmin
+          .from('user_learning_predictions')
+          .update({
+            total_submissions,
+            avg_submission_rating,
+            avg_exam_score,
+            total_journeys_completed,
+            avg_speed_ratio,
+            cluster: result.cluster,
+            learning_style: result.learningStyle,
+            confidence: result.confidence,
+            distance_to_centroid: result.distance_to_centroid,
+            normalized_features: result.normalized_features,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('user_id', Number(user_id));
+
+        if (error) throw error;
+
         return {
           success: true,
-          data: {
-            input_features: request.payload,
-            prediction: result,
-          },
-          timestamp: new Date().toISOString,
+          data: result,
+          timestamp: new Date().toISOString(),
         };
-      } catch (error) {
-        return h
-          .response({
-            success: false,
-            error: error.message,
-          })
-          .code(400);
+      } catch (err) {
+        return h.response({ success: false, error: err.message }).code(500);
       }
     },
-  },
+  },  
   {
     method: 'POST',
     path: '/api/predict/batch',
-    handler: (request, h) => {
-      try {
-        const results = request.payload.users.map((user) => {
-          const features = [
-            user.total_submissions,
-            user.avg_submission_rating,
-            user.avg_exam_score,
-            user.total_journeys_completed,
-            user.avg_speed_ratio,
-          ];
+    handler: (request) => {
+      const classifier = getClassifier();
 
-          const prediction = classifier.predict(features);
-
-          return {
-            user_id: user.user_id,
-            prediction: prediction,
-          };
-        });
-
-        return {
-          success: true,
-          data: {
-            total_users: results.length,
-            results: results,
-          },
-          timestamp: new Date().toISOString(),
-        };
-      } catch (error) {
-        return h
-          .response({
-            success: false,
-            error: error.message,
-          })
-          .code(400);
-      }
-    },
-  },
-  {
-    method: 'GET',
-    path: '/api/recommendations/{style}',
-    handler: (request, h) => {
-      const style = request.params.style;
-      const recommendation = modelConfig.recommendation_texts[style];
-
-      if (!recommendation) {
-        return h
-          .response({
-            success: false,
-            error: 'Learning style not found',
-          })
-          .code(404);
-      }
+      const results = request.payload.users.map((user) => ({
+        user_id: user.user_id,
+        prediction: classifier.predict([
+          user.total_submissions,
+          user.avg_submission_rating,
+          user.avg_exam_score,
+          user.total_journeys_completed,
+          user.avg_speed_ratio,
+        ]),
+      }));
 
       return {
         success: true,
-        data: recommendation,
+        total_users: results.length,
+        results,
+        timestamp: new Date().toISOString(),
       };
     },
   },

@@ -1,64 +1,88 @@
-const modelPath = require('../../ml-models/RecommendationModel.json');
+const fs = require('fs/promises');
+const path = require('path');
 
-let modelConfig;
+const modelPath = path.resolve(
+  __dirname,
+  '../../ml-models/RecommendationModel.json'
+);
 
-async function LoadModel() {
-    const data = await fs.readFile(modelPath, 'utf8');
-    modelConfig = JSON.parse(data);
-    console.log('Model loaded successfully!');
-}
+let modelConfig = null;
+let classifier = null;
 
 class LearningStyleClassifier {
-    constructor(config) {
-        this.featuresOrder = config.features_order;
-        this.scaler = config.scaler;
-        this.centroids = config.centroids;
-        this.clusterMap = config.clusterMap;
-        this.recommendations = config.recommendation_texts;
-    }
-    
-    normalize(features) {
-        return features.map((value, idx) => {
-            const min = this.scaler.min[idx];
-            const scale = this.scaler.scale[idx];
-            return (value - min) / scale;
-        });
-    }
+  constructor(config) {
+    this.featuresOrder = config.features_order;
+    this.scaler = config.scaler;
+    this.centroids = config.centroids;
+    this.clusterMap = config.clusterMap;
+    this.recommendations = config.recommendation_texts;
+  }
 
-    euclideanDistance(point1, point2) {
-        return Math.sqrt(
-            point1.reduce((sum, val, idx) => {
-                return sum + Math.pow(val - point2[idx], 2);
-            }, 0)
-        );
-    }
+  normalize(features) {
+    return features.map((value, idx) => {
+      const min = this.scaler.min[idx];
+      const scale = this.scaler.scale[idx];
+      return (value - min) / scale;
+    });
+  }
 
-    predict(inputFeatures) {
-        const normalized = this.normalize(inputFeatures);
+  euclideanDistance(a, b) {
+    return Math.sqrt(
+      a.reduce((sum, val, i) => sum + (val - b[i]) ** 2, 0)
+    );
+  }
 
-        let minDistance = Infinity;
-        let predictedCluster = 0;
+  predict(inputFeatures) {
+    const normalized = this.normalize(inputFeatures);
 
-        this.centroids.forEach((centroid, idx) => {
-            const distance = this.euclideanDistance(normalized, centroid);
-            if (distance < minDistance) {
-                minDistance = distance;
-                predictedCluster = idx;
-            }
-        });
+    let minDistance = Infinity;
+    let predictedCluster = 0;
 
-        const learningStyle = this.clusterMap[predictedCluster.toString()];
-        const recommendation = this.recommendations[learningStyle];
+    this.centroids.forEach((centroid, idx) => {
+      const dist = this.euclideanDistance(normalized, centroid);
+      if (dist < minDistance) {
+        minDistance = dist;
+        predictedCluster = idx;
+      }
+    });
 
-        return {
-            cluster: predictedCluster,
-            learningStyle: learningStyle,
-            confidence: 1 - (minDistance / Math.sqrt(this.centroids[0].length)),
-            recommendation: recommendation,
-            normalized_features: normalized,
-            distance_to_centroid: minDistance
-        };
-    }
+    const learningStyle = this.clusterMap[predictedCluster.toString()];
+
+    return {
+      cluster: predictedCluster,
+      learningStyle,
+      confidence: 1 - minDistance / Math.sqrt(this.centroids[0].length),
+      recommendation: this.recommendations[learningStyle],
+      normalized_features: normalized,
+      distance_to_centroid: minDistance,
+    };
+  }
 }
 
-module.exports = { modelConfig, LoadModel, LearningStyleClassifier}
+async function LoadModel() {
+  const data = await fs.readFile(modelPath, 'utf8');
+  modelConfig = JSON.parse(data);
+  classifier = new LearningStyleClassifier(modelConfig);
+  console.log('ML model loaded');
+}
+
+// 👇 THESE are what your routes expect
+function getModelConfig() {
+  if (!modelConfig) {
+    throw new Error('Model not loaded yet');
+  }
+  return modelConfig;
+}
+
+function getClassifier() {
+  if (!classifier) {
+    throw new Error('Classifier not initialized');
+  }
+  return classifier;
+}
+
+module.exports = {
+  LoadModel,
+  getModelConfig,
+  getClassifier,
+};

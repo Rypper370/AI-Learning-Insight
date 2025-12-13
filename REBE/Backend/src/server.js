@@ -8,13 +8,14 @@ const authRoutes = require('./routes/auth');
 const { cityRoutes, cityAssignmentTracker } = require('./routes/cities');
 
 // Predictions
-// const predictRoutes = require('./routes/predictions');
-const mlModel = require('./models/ml-model');
+const predictionRoutes = require('./routes/predictions');
+const { LoadModel } = require('./models/ml-model');
 
 // Leaderboards
 const leaderboardRoutes = require('./routes/leaderboard');
 
 const init = async () => {
+  await LoadModel();
   const server = Hapi.server({
     port: process.env.PORT || 3000,
     host: process.env.HOST || 'localhost',
@@ -28,11 +29,9 @@ const init = async () => {
 
   await cityAssignmentTracker.initialize();
 
-  // await mlModel.initialize();
-
   server.route(authRoutes);
   server.route(cityRoutes);
-  // server.route(predictRoutes);
+  server.route(predictionRoutes);
   server.route(leaderboardRoutes);
 
   server.route({

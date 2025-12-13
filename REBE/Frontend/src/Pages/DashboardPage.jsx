@@ -2,6 +2,7 @@ import ProfilePicture from '../components/Dashboard/ProfilePicture';
 import LevelBar from '../components/Dashboard/LevelBar';
 import LevelProgressButton from '../components/Dashboard/LevelProgressButton';
 import '../styles/dashboard.css';
+import LearningInsightContainer from '../components/Dashboard/LearningInsightContainer';
 import Leaderboard from '../components/Dashboard/Leaderboard';
 
 export default function DashboardPage({ profile, onLogout }) {
@@ -32,11 +33,7 @@ export default function DashboardPage({ profile, onLogout }) {
       <main className="main-container">
         <div className="insight-subcontainer">
           <h3>AI Learning Insight</h3>
-          <ul>
-            <li>Completed 5 lessons this week</li>
-            <li>Average quiz score: 87%</li>
-            <li>Time spent learning: 4h 32m</li>
-          </ul>
+          <LearningInsightContainer />
         </div>
 
         <div className="leaderboard-subcontainer">

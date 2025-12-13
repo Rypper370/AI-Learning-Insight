@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const csv = require('csv-parser');
 const { supabaseAdmin } = require('../config/supabase');
 
@@ -54,6 +55,9 @@ async function importCSV(filePath) {
   });
 }
 
+const csvPath = path.resolve(__dirname, '../models/dataset.csv');
+
 (async () => {
-  await importCSV('./dataset.csv');
+  console.log('Loading CSV from:', csvPath);
+  await importCSV(csvPath);
 })();
