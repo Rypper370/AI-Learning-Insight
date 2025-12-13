@@ -109,7 +109,7 @@ function App() {
         >
           <h1>AI Learning Insight</h1>
         </header>
-        <main style={{ padding: '2rem' }}>
+        <main>
           <Routes>
             <Route
               path="/"

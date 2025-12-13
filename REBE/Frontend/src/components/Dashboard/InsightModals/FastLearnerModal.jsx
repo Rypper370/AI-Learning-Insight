@@ -40,6 +40,18 @@ export default function FastLearnerModal({ onClose }) {
       description: 'Fast calendar with timezone support for quick rescheduling and hotkeys.',
       tag: 'Schedule',
     },
+    {
+      name: 'Roadmap.sh',
+      url: 'https://roadmap.sh',
+      description: 'Learn developer roadmaps to map future learning',
+      tag: 'Roadmap'
+    },
+    {
+      name: 'Leetcode',
+      url: 'https://leetcode.com/',
+      description: 'Leetcode has lots of challenges for you to learn.',
+      tag: 'Beginner to Expert level coding challenges'
+    }
   ];
 
   return ReactDOM.createPortal(

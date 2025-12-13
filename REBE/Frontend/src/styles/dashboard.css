@@ -6,6 +6,8 @@
 }
 
 .side-container {
+  margin-top: 1rem;
+  margin-left: 2rem;
   flex: 0 0 350px;
   padding: 2rem 1rem;
   border-radius: 0.75rem;
@@ -95,6 +97,7 @@
 /* Main content takes remaining space */
 .main-container {
   flex: 1;
+  min-width: 0;
   padding: 0.5rem;
   background-color: #f8f8f8;
   border-radius: 0.75rem;
@@ -103,6 +106,8 @@
 
 /* Subcontainers inside main */
 .insight-subcontainer {
+  min-width: 0;
+  max-width: 100%;
   border-radius: 0.75rem;
   border: 0.25px solid #a9a9af;
   background: linear-gradient(135deg, #0d1b2a 0%, #11253d 100%);
@@ -125,6 +130,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .insight-header {
@@ -396,13 +403,21 @@
 }
 
 .leaderboard-row.current-user-row {
-  background: linear-gradient(90deg, rgba(4, 149, 247, 0.08), rgba(4, 149, 247, 0.02));
+  background: linear-gradient(
+    90deg,
+    rgba(4, 149, 247, 0.08),
+    rgba(4, 149, 247, 0.02)
+  );
   box-shadow: inset 4px 0 0 0 #0495f7;
   position: relative;
 }
 
 .leaderboard-row.current-user-row:hover {
-  background: linear-gradient(90deg, rgba(4, 149, 247, 0.12), rgba(4, 149, 247, 0.05));
+  background: linear-gradient(
+    90deg,
+    rgba(4, 149, 247, 0.12),
+    rgba(4, 149, 247, 0.05)
+  );
 }
 
 .leaderboard-row.current-user-row::after {
@@ -451,7 +466,6 @@
   align-items: center;
   gap: 8px;
 }
-
 
 .level-text {
   font-weight: 600;
@@ -575,7 +589,9 @@
 
   .side-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 360px;
+    margin: 0;
+    margin-top: 0.755rem;
   }
 
   .main-container {
@@ -614,7 +630,8 @@
   color: #e7eeff;
   padding: 28px;
   width: min(720px, 92vw);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .modal-header {
@@ -682,6 +699,17 @@
 }
 
 @media (max-width: 640px) {
+
+  main {
+    padding: 0rem;
+  }
+
+  
+
+  .side-container {
+    padding: 0.5rem;
+  }
+
   .insight-modal-card {
     padding: 22px;
   }
@@ -761,6 +789,25 @@
 .badge-label {
   margin-top: 6px;
   font-size: 0.9rem;
+}
+
+.insight-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.insight-header .meta {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.insight-header .pill {
+  flex: 1; 
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* Close button */
