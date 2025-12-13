@@ -1,128 +1,262 @@
 # 🧠 Student Progress Dashboard
 
+Sebuah platform analitik pembelajaran yang dirancang untuk membantu siswa, dosen, dan institusi pendidikan memahami perkembangan akademik secara komprehensif melalui visualisasi data, analisis perilaku belajar, dan insight berbasis data.
 
-Sebuah platform analitik pembelajaran yang dirancang untuk membantu siswa, dosen, dan institusi memahami perkembangan akademik secara lebih komprehensif melalui visualisasi data dan insight berbasis analisis.
+---
 
+## 📌 Deskripsi Proyek
 
-# 📌 Deskripsi Proyek
+**Student Progress Dashboard** adalah aplikasi web yang menampilkan perkembangan belajar siswa secara real-time melalui grafik interaktif, statistik performa, serta insight personal berbasis analisis data.
 
-Student Progress Dashboard adalah website yang menampilkan perkembangan belajar siswa secara real-time melalui grafik, statistik, dan insight personal. Proyek ini dibuat untuk mengatasi masalah umum pada platform pembelajaran tradisional yang biasanya hanya menampilkan nilai akhir tanpa analisis mendalam mengenai:
+Proyek ini dikembangkan untuk menjawab permasalahan umum pada platform pembelajaran tradisional yang umumnya hanya menampilkan **nilai akhir**, tanpa memberikan pemahaman mendalam mengenai:
 
-- Gamifikasi leveling 
-- Pola belajar siswa
-- Progres harian/mingguan
-- Perbandingan performa
+- Gamifikasi dan sistem leveling belajar
+- Pola dan kebiasaan belajar siswa
+- Progres belajar harian dan mingguan
+- Perbandingan performa antar periode atau individu
 
-Dashboard ini ditujukan untuk mahasiswa, instruktur, dan tenaga kependidikan di bidang teknologi atau pendidikan modern.
+Dashboard ini ditujukan untuk:
+- 🎓 Mahasiswa / Siswa
+- 👨‍🏫 Dosen / Instruktur
+- 🏫 Institusi pendidikan berbasis teknologi
 
-# 🚀 Fitur Utama
+---
 
-- 📊 Dashboard Progres Siswa (grafik, ringkasan nilai, tracking performa)
+## 🚀 Fitur Utama
 
-- 🧠 Analisis Gaya Belajar
+- 📊 **Dashboard Progres Siswa**  
+  Visualisasi nilai, grafik progres, dan ringkasan performa
 
-- 📝 Tracking Tugas & Aktivitas Pembelajaran
+- 🧠 **Analisis Gaya Belajar**  
+  Identifikasi kecenderungan gaya belajar siswa
 
-- 🧾 Laporan dan Insight Otomatis
+- 📝 **Tracking Tugas & Aktivitas**  
+  Monitoring aktivitas pembelajaran secara berkala
 
-- 🧩 Rekomendasi Materi Belajar Personal
+- 🧾 **Insight & Laporan Otomatis**  
+  Rangkuman performa belajar berbasis data
 
-- 🔐 Manajemen User & Role (Admin, Dosen, Siswa)
+- 🧩 **Rekomendasi Materi Personal**  
+  Saran pembelajaran sesuai pola belajar
 
-- ⚙️ API untuk integrasi data akademik
+- 🔐 **Manajemen User & Role**  
+  Admin, Dosen, dan Siswa
 
-# 🛠️ Tech Stack
+- ⚙️ **RESTful API**  
+  Mendukung integrasi data akademik
 
-## Frontend:
+---
 
-- React 
+## 🛠️ Tech Stack
 
+### Frontend
+- React
+- Vite
 - CSS
 
-## Backend:
-
-- Node.js (Hapi)
-
+### Backend
+- Node.js
+- Hapi Framework
 - JWT Authentication
 
-## Database:
+### Database
+- PostgreSQL
+- Supabase (Managed PostgreSQL)
 
-- PostgreSQL 
+### DevOps & Tools
+- Git & GitHub
+- Netlify (Frontend Hosting)
+- AWS (Backend Hosting)
 
-## Git & GitHub
+---
 
-## Hosting 
-- Netlify
-- Railway
+## 📈 Arsitektur Sistem
 
-# 📁 Struktur Project
+Aplikasi menggunakan arsitektur **Client–Server** dengan pemisahan yang jelas:
+
+- **Frontend**
+  - Menampilkan UI dashboard dan visualisasi data
+  - Mengelola state, autentikasi, dan interaksi pengguna
+
+- **Backend**
+  - Menyediakan REST API
+  - Mengelola autentikasi & otorisasi
+  - Menangani business logic
+
+- **Database**
+  - Menyimpan data user, progres belajar, dan aktivitas
+
+- **Machine Learning Layer**
+  - Analisis perilaku belajar
+  - Klasifikasi gaya belajar
+  - Penyediaan insight personal
+
+---
+
+## 🤖 Machine Learning Integration
+
+### Workflow
+
+1. **Data Collection**  
+   - Aktivitas login
+   - Riwayat tugas dan nilai
+   - Durasi dan frekuensi belajar
+
+2. **Preprocessing**  
+   - Normalisasi data
+   - Feature extraction
+   - Labeling dataset
+
+3. **Modeling**  
+   - Model klasifikasi dasar
+   - Output: kategori gaya belajar (Visual, Auditori, Kinestetik, Campuran)
+
+4. **Insight Delivery**  
+   - Ditampilkan pada dashboard
+   - Digunakan untuk rekomendasi materi belajar
+
+---
+
+## 🔗 API Documentation (Ringkas)
+
+Base URL:
 ```
+/api
+```
+
+### Authentication
+- `POST /authentications/register` – Registrasi user
+- `POST /authentications/login` – Login
+- `PUT /authentications/refresh` – Refresh token
+- `DELETE /authentications/logout` – Logout
+
+### Users
+- `POST /users` – Tambah user
+- `GET /users/{id}` – Detail user
+
+> Endpoint progres, insight, dan laporan akan dikembangkan pada tahap selanjutnya.
+
+---
+
+## 📦 Installation
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/Rypper370/AI-Learning-Insight.git
+cd AI-Learning-Insight
+```
+
+### 2. Install Dependencies
+```bash
+npm install dotenv
+```
+
+### 3. Setup Environment Variables
+
+Buat file `.env` pada root directory **Backend**:
+```env
+HOST=Your_Host
+PORT=Your_Port
+
+PGUSER=Your_User_PG
+PGHOST=Your_Host_PG
+PGPASSWORD=Your_Password_PG
+PGDATABASE=Your_Database_PG
+PGPORT=Your_Port_PG
+
+ACCESS_TOKEN_KEY=Your_ACCESS_TOKEN_KEY
+REFRESH_TOKEN_KEY=Your_REFRESH_TOKEN_KEY
+ACCESS_TOKEN_AGE=Your_ACCESS_TOKEN_AGE
+```
+
+### 4. Menjalankan Aplikasi
+
+**Frontend**
+```bash
+npm run dev
+```
+
+**Backend**
+```bash
+npm run start:dev
+```
+
+---
+
+## 📁 Struktur Project
+
+```
+ML/
+├── user_insights_labeled.xlsx
+
 REBE/
 ├── Backend/
 │   ├── src/
 │   │   ├── api/
 │   │   │   ├── authentications/
-│   │   │   │   ├── handler.js
-│   │   │   │   ├── index.js
-│   │   │   │   └── routes.js
-│   │   │   ├── users/
-│   │   │   │   ├── handler.js
-│   │   │   │   ├── index.js
-│   │   │   │   └── routes.js
+│   │   │   └── users/
 │   │   ├── exceptions/
-│   │   │   ├── AuthenticationError.js
-│   │   │   ├── AuthorizationError.js
-│   │   │   ├── ClientError.js
-│   │   │   ├── InvariantError.js
-│   │   │   └── NotFoundError.js
 │   │   ├── services/postgres/
-│   │   │   ├── AuthenticationsService.js
-│   │   │   └── UsersService.js
 │   │   ├── tokenize/
-│   │   │   └── TokenManager.js
 │   │   ├── validator/
-│   │   │   ├── authentications/
-│   │   │   │   ├── index.js
-│   │   │   │   └── schema.js
-│   │   │   ├── users/
-│   │   │   │   ├── index.js
-│   │   │   │   └── schema.js
-│   │   ├── server.js
+│   │   └── server.js
 │   ├── .env.example
-│   ├── .gitignore
-│   ├── package-lock.json
-│   └── package.json
+│   ├── eslint.config.js
+│   ├── package.json
 │
 ├── Frontend/
 │   ├── public/
-│   │   ├── AI Learning Insight.png
-│   │   └── vite.svg
 │   ├── src/
 │   │   ├── Pages/
-│   │   │   ├── AuthPage.jsx
-│   │   │   └── assets/
-│   │   │       └── noacc.svg
 │   │   ├── components/
-│   │   │   ├── Loading.jsx
-│   │   │   ├── LoginInput.jsx
-│   │   │   └── RegisterInput.jsx
 │   │   ├── context/
-│   │   │   └── ThemeContext.jsx
 │   │   ├── styles/
-│   │   │   ├── auth2.css
-│   │   │   ├── loading.css
-│   │   │   └── styles.css
-│   │   ├── utils/
-│   │   │   ├── App.jsx
-│   │   │   └── main.jsx
-│   ├── README.md
-│   ├── eslint.config.js
+│   │   └── utils/
 │   ├── index.html
-│   ├── package-lock.json
+│   ├── eslint.config.js
 │   ├── package.json
 │   └── vite.config.js
 │
 └── README.md
-
 ```
+
+---
+
+## 🧪 Testing
+
+- Backend: Postman (Manual API Testing)
+- Frontend: Manual UI Testing
+
+> Automated testing direncanakan pada tahap pengembangan berikutnya.
+
+---
+
+## 🛣️ Roadmap Pengembangan
+
+- [ ] Dashboard analytics lanjutan
+- [ ] Perbandingan performa antar siswa
+- [ ] Model machine learning lanjutan
+- [ ] Export laporan (PDF)
+- [ ] Sistem notifikasi dan reminder belajar
+
+---
+
+## 👨‍💻 Author
+
+- M172D5Y0388 – Christian Michael Halim – Machine Learning  
+- M172D5X1839 – Sheany Multa Kandi – Machine Learning  
+- R172D5Y1983 – Yohanes Aldo Anantha – React & Backend with AI 
+- R271D5Y1063 – Malik Bazil Rabbani – React & Backend with AI 
+- R172D5Y0940 – Karan – React & Backend with AI  
+
+Proyek ini dikembangkan sebagai eksplorasi dan implementasi:
+- Web Development
+- Data Analytics
+- Machine Learning
+
+dalam konteks **pendidikan digital modern**.
+
+---
+
+> _Student Progress Dashboard bertujuan menjadi fondasi sistem pembelajaran digital yang lebih adaptif, transparan, dan berorientasi pada perkembangan individu._
 
