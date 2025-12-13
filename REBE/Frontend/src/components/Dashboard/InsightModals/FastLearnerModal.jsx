@@ -43,14 +43,14 @@ export default function FastLearnerModal({ onClose }) {
     {
       name: 'Roadmap.sh',
       url: 'https://roadmap.sh',
-      description: 'Learn developer roadmaps to map future learning',
+      description: 'Learn developer roadmaps to map future learning.',
       tag: 'Roadmap'
     },
     {
       name: 'Leetcode',
       url: 'https://leetcode.com/',
       description: 'Leetcode has lots of challenges for you to learn.',
-      tag: 'Beginner to Expert level coding challenges'
+      tag: 'Coding Challenges'
     }
   ];
 
