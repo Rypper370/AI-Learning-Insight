@@ -121,7 +121,15 @@ const authRoutes = [
 
         const { data: publicUser, error: publicError } = await supabaseAdmin
           .from('users')
-          .select('*')
+          .select(
+            `*, 
+            user_learning_predictions (
+              learning_style,
+              confidence,
+              updated_at
+            )
+            `
+          )
           .eq('email', email)
           .single();
 
@@ -131,10 +139,12 @@ const authRoutes = [
         const resolvedUrl = await resolveProfilePicture(publicUser.image_path);
 
         const { data: levelRow } = await supabaseAdmin
-        .from('levels')
-        .select('required_xp')
-        .eq('id', publicUser.level)
-        .single();
+          .from('levels')
+          .select('required_xp')
+          .eq('id', publicUser.level)
+          .single();
+
+        const learningPrediction = publicUser.user_learning_predictions?.[0] ?? null;
 
         return h
           .response({
@@ -142,8 +152,12 @@ const authRoutes = [
               id: authData.user.id,
               email,
               ...publicUser,
+
+              learning_style: learningPrediction?.learning_style ?? null,
+              learning_style_confidence: learningPrediction?.confidence ?? null,
+              learning_style_updated_at: learningPrediction?.updated_at ?? null,
               resolved_profile_picture_url: resolvedUrl,
-              required_xp: levelRow?.required_xp ?? 0
+              required_xp: levelRow?.required_xp ?? 0,
             },
           })
           .code(200);

@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getModelInfo, getMyPrediction, predictAndSave } from '../../utils/api';
+import { getModelInfo, predictAndSave } from '../../utils/api';
+import ReflectiveLearnerModal from './InsightModals/ReflectiveLearnerModal';
+import FastLearnerModal from './InsightModals/FastLearnerModal';
+import ConsistentLearnerModal from './InsightModals/ConsistentLearnerModal';
 
 const defaultForm = {
   total_submissions: 0,
@@ -20,6 +23,7 @@ export default function LearningInsightContainer() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [loadingPrediction, setLoadingPrediction] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -109,6 +113,27 @@ export default function LearningInsightContainer() {
     form.avg_exam_score !== 0 ||
     form.total_journeys_completed !== 0 ||
     form.avg_speed_ratio !== 0;
+
+  const normalizeStyle = (style) => (style || '').toLowerCase();
+
+  const renderActiveModal = () => {
+    const style = normalizeStyle(activeModal);
+    if (!style) return null;
+
+    if (style.includes('fast')) {
+      return <FastLearnerModal onClose={() => setActiveModal(null)} />;
+    }
+
+    if (style.includes('reflect')) {
+      return <ReflectiveLearnerModal onClose={() => setActiveModal(null)} />;
+    }
+
+    if (style.includes('consistent') || style.includes('steady') || style.includes('slow')) {
+      return <ConsistentLearnerModal onClose={() => setActiveModal(null)} />;
+    }
+
+    return null;
+  };
 
   const handlePredict = async () => {
     if (!profile?.id) return;
@@ -230,7 +255,11 @@ export default function LearningInsightContainer() {
                     </p>
                   )}
                   {result.recommendation.action_button && (
-                    <button className="btn secondary">
+                    <button
+                      type="button"
+                      className="btn secondary"
+                      onClick={() => setActiveModal(result.learningStyle)}
+                    >
                       {result.recommendation.action_button}
                     </button>
                   )}
@@ -242,6 +271,12 @@ export default function LearningInsightContainer() {
           )}
         </div>
       )}
+
+      {renderActiveModal()}
+
+      <p style={{ fontStyle: 'italic' }}>
+        Note: AI Learning Insight is an experimental feature!
+      </p>
     </div>
   );
 }

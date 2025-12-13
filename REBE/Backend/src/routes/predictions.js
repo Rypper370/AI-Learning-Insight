@@ -81,7 +81,6 @@ const predictionRoutes = [
       };
     },
   },
-
   {
     method: 'POST',
     path: '/api/predict/save',
@@ -114,7 +113,7 @@ const predictionRoutes = [
 
         const result = classifier.predict(features);
 
-        const { error } = await supabaseAdmin
+        const { error: predictionError } = await supabaseAdmin
           .from('user_learning_predictions')
           .update({
             total_submissions,
@@ -131,7 +130,18 @@ const predictionRoutes = [
           })
           .eq('user_id', Number(user_id));
 
-        if (error) throw error;
+        if (predictionError) throw predictionError;
+
+        const { error: userError } = await supabaseAdmin
+          .from('users')
+          .update({
+            learning_style: result.learningStyle,
+            learning_style_confidence: result.confidence,
+            learning_style_updated_at: new Date().toISOString(),
+          })
+          .eq('id', Number(user_id));
+
+        if (userError) throw userError;
 
         return {
           success: true,
@@ -142,7 +152,7 @@ const predictionRoutes = [
         return h.response({ success: false, error: err.message }).code(500);
       }
     },
-  },  
+  },
   {
     method: 'POST',
     path: '/api/predict/batch',

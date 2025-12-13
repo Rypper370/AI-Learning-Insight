@@ -6,6 +6,8 @@ import LearningInsightContainer from '../components/Dashboard/LearningInsightCon
 import Leaderboard from '../components/Dashboard/Leaderboard';
 
 export default function DashboardPage({ profile, onLogout }) {
+  if (!profile) return null;
+
   return (
     <div className="dashboard-container">
       <aside className="side-container">
@@ -19,13 +21,14 @@ export default function DashboardPage({ profile, onLogout }) {
           Email: <span className="hyperlink-style">{profile.email}</span>
         </p>
         <p className="focus-font">
-          Learner Type: <span>Consistent Learner</span>
+          Learner Type:{' '}
+          <span>{profile.learning_style ?? 'Not analyzed yet!'}</span>
         </p>
         <p className="focus-font">
           Level: <span>{profile.level}</span>
         </p>
         <LevelBar value={profile.xp} max={profile.required_xp} />
-        <LevelProgressButton profile={profile}/>
+        <LevelProgressButton profile={profile} />
         <button onClick={onLogout} className="button-hazard">
           Logout
         </button>
