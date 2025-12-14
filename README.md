@@ -1,4 +1,4 @@
-# 🧠 Student Progress Dashboard
+# 🧠 Student Progress Dashboard (EPIS)
 
 Sebuah platform analitik pembelajaran yang dirancang untuk membantu siswa, dosen, dan institusi pendidikan memahami perkembangan akademik secara komprehensif melalui visualisasi data, analisis perilaku belajar, dan insight berbasis data.
 
@@ -6,7 +6,7 @@ Sebuah platform analitik pembelajaran yang dirancang untuk membantu siswa, dosen
 
 ## 📌 Deskripsi Proyek
 
-**Student Progress Dashboard** adalah aplikasi web yang menampilkan perkembangan belajar siswa secara real-time melalui grafik interaktif, statistik performa, serta insight personal berbasis analisis data.
+**Student Progress Dashboard, EPIS** adalah aplikasi web yang menampilkan perkembangan belajar siswa secara real-time melalui grafik interaktif, statistik performa, serta insight personal berbasis analisis data.
 
 Proyek ini dikembangkan untuk menjawab permasalahan umum pada platform pembelajaran tradisional yang umumnya hanya menampilkan **nilai akhir**, tanpa memberikan pemahaman mendalam mengenai:
 
@@ -25,7 +25,7 @@ Dashboard ini ditujukan untuk:
 ## 🚀 Fitur Utama
 
 - 📊 **Dashboard Progres Siswa**  
-  Visualisasi nilai, grafik progres, dan ringkasan performa
+  Visualisasi nilai dan ringkasan performa
 
 - 🧠 **Analisis Gaya Belajar**  
   Identifikasi kecenderungan gaya belajar siswa
@@ -57,7 +57,7 @@ Dashboard ini ditujukan untuk:
 ### Backend
 - Node.js
 - Hapi Framework
-- JWT Authentication with Supabase Auth
+- JWT Authentication via Supabase Auth
 
 ### Database
 - PostgreSQL
@@ -89,7 +89,7 @@ Aplikasi menggunakan arsitektur **Client–Server** dengan pemisahan yang jelas:
 - **Machine Learning Layer**
   - Analisis perilaku belajar
   - Klasifikasi gaya belajar
-  - Penyediaan insight personal
+  - Penyediaan insight berdasarkan tipe pelajar
 
 ---
 
@@ -109,11 +109,11 @@ Aplikasi menggunakan arsitektur **Client–Server** dengan pemisahan yang jelas:
 
 3. **Modeling**  
    - Model klasifikasi dasar
-   - Output: kategori gaya belajar (Visual, Auditori, Kinestetik, Campuran)
+   - Output: kategori gaya belajar (Fast, Reflective, Consistent)
 
 4. **Insight Delivery**  
    - Ditampilkan pada dashboard
-   - Digunakan untuk rekomendasi materi belajar
+   - Digunakan untuk rekomendasi materi belajar dan tools untuk meningkatkan produktivitas mereka
 
 ---
 
@@ -121,7 +121,9 @@ Aplikasi menggunakan arsitektur **Client–Server** dengan pemisahan yang jelas:
 
 Base URL:
 ```
-/api
+/api -> untuk api umum
+/auth -> untuk autentikasi
+
 ```
 
 ### Authentication
@@ -267,5 +269,5 @@ dalam konteks **pendidikan digital modern**.
 
 ---
 
-> _Student Progress Dashboard bertujuan menjadi fondasi sistem pembelajaran digital yang lebih adaptif, transparan, dan berorientasi pada perkembangan individu._
+> _Student Progress Dashboard, EPIS bertujuan menjadi fondasi sistem pembelajaran digital yang lebih adaptif, transparan, dan berorientasi pada perkembangan individu._
 
