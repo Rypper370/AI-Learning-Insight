@@ -150,27 +150,32 @@ git clone https://github.com/Rypper370/AI-Learning-Insight.git
 cd AI-Learning-Insight
 ```
 
+**Alternatif**: Install sebagai .zip dari halaman *Releases* dengan mengambil versi terbaru
+
 ### 2. Install Dependencies
 ```bash
-npm install dotenv
+npm install
 ```
 
 ### 3. Setup Environment Variables
 
 Buat file `.env` pada root directory **Backend**:
 ```env
-HOST=Your_Host
-PORT=Your_Port
+HOST=localhost
+PORT=3000
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_KEY=
+SUPABASE_SHARED_BUCKET=
+SUPABASE_SHARED_PROFILE_PICTURES_PATH=shared/profile-pictures
+NODE_ENV=development
+```
+Dan jangan lupa tambahkan file `env` yang disalin dari `.env.example` pada root directory **Frontend**:
+```env
+VITE_API_URL=...
+SUPABASE_SHARED_BUCKET=...
+SUPABASE_SHARED_PROFILE_PICTURES_PATH=shared/profile-pictures
 
-PGUSER=Your_User_PG
-PGHOST=Your_Host_PG
-PGPASSWORD=Your_Password_PG
-PGDATABASE=Your_Database_PG
-PGPORT=Your_Port_PG
-
-ACCESS_TOKEN_KEY=Your_ACCESS_TOKEN_KEY
-REFRESH_TOKEN_KEY=Your_REFRESH_TOKEN_KEY
-ACCESS_TOKEN_AGE=Your_ACCESS_TOKEN_AGE
 ```
 
 ### 4. Menjalankan Aplikasi
@@ -196,7 +201,6 @@ ML/
 ├── Dataset
 ├── Machine Learning Model
 ├── Notebook
-
 REBE/
 ├── Backend/
 │   ├── src/
