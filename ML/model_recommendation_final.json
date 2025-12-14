@@ -1,0 +1,77 @@
+{
+    "metadata": {
+        "version": "FINAL",
+        "description": "Learning Style Model for Frontend Inference"
+    },
+    "features_order": [
+        "total_submissions",
+        "avg_submission_rating",
+        "avg_exam_score",
+        "total_journeys_completed",
+        "avg_speed_ratio"
+    ],
+    "scaler": {
+        "min": [
+            0.0,
+            0.4043478260869565,
+            57.25687458081824,
+            0.0,
+            0.5464135021097046
+        ],
+        "scale": [
+            352.0,
+            3.428985507246377,
+            37.8139587525151,
+            82.0,
+            9.87494760313658
+        ]
+    },
+    "centroids": [
+        [
+            0.07512626262626265,
+            0.411056668140011,
+            0.5144539257766206,
+            0.2005420054200542,
+            0.7395585169400144
+        ],
+        [
+            0.20482954545454546,
+            0.6206789512082241,
+            0.6920538612045504,
+            0.45975609756097563,
+            0.43298785785020344
+        ],
+        [
+            0.8267045454545454,
+            0.09182644278798124,
+            0.1372043648140978,
+            0.7926829268292683,
+            0.7943153817092533
+        ]
+    ],
+    "cluster_map": {
+        "2": "Fast Learner",
+        "1": "Reflective Learner",
+        "0": "Consistent Learner"
+    },
+    "recommendation_texts": {
+        "Fast Learner": {
+            "kategori": "Fast Learner",
+            "judul_saran": "Tantangan Coding Time-Attack",
+            "deskripsi_saran": "Kamu memiliki kecepatan belajar tinggi! Hindari kebosanan dengan mengambil materi tingkat lanjut atau proyek deadline ketat.",
+            "action_button": "Mulai Tantangan Expert"
+        },
+        "Reflective Learner": {
+            "kategori": "Reflective Learner",
+            "judul_saran": "Analisis Studi Kasus Mendalam",
+            "deskripsi_saran": "Kamu tipe pemikir mendalam. Maksimalkan pemahamanmu dengan melakukan code review dan bedah studi kasus.",
+            "action_button": "Lihat Studi Kasus"
+        },
+        "Consistent Learner": {
+            "kategori": "Consistent Learner",
+            "judul_saran": "Rutin Belajar dengan Pomodoro",
+            "deskripsi_saran": "Disiplin adalah kekuatanmu. Jaga ritme belajar dengan teknik Pomodoro (25 menit fokus) agar tidak burnout.",
+            "action_button": "Set Jadwal Belajar"
+        }
+    }
+}
