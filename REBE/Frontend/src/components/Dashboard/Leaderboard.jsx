@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { badgeRegistry } from './Badges/BadgeRegistry';
 
 function getHighestBadge(level) {
-    const unlocked = badgeRegistry.filter(b => level >= b.levelReq);
-    return unlocked.length > 0 ? unlocked[unlocked.length - 1]: null;
+  const unlocked = badgeRegistry.filter(b => level >= b.levelReq);
+  return unlocked.length > 0 ? unlocked[unlocked.length - 1] : null;
 }
 
 function normalizeName(name) {
@@ -12,11 +12,9 @@ function normalizeName(name) {
     .trim()
     .split(/\s+/)
     .map(word =>
-      word
-        .toLowerCase()
-        .replace(/^[a-z]/, c => c.toUpperCase())
+      word.toLowerCase().replace(/^[a-z]/, c => c.toUpperCase())
     )
-    .join(" ");
+    .join(' ');
 }
 
 export default function Leaderboard() {
@@ -26,22 +24,25 @@ export default function Leaderboard() {
   const [page, setPage] = useState(1);
   const perPage = 30;
   const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     setLoading(true);
+
     fetch(
       `${import.meta.env.VITE_API_URL}/api/leaderboard?page=${page}&per_page=${perPage}`
     )
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setUsers(data.users || []);
+        setTotalPages(data.total_pages || 1);
       })
       .finally(() => setLoading(false));
   }, [page]);
 
   return (
     <div className="leaderboard-subcontainer">
-      <h3 style={{ marginBlock: 16}}>Leaderboard</h3>
+      <h3 style={{ marginBlock: 16 }}>Leaderboard</h3>
 
       {loading && <p>Loading...</p>}
 
@@ -60,7 +61,6 @@ export default function Leaderboard() {
           <tbody>
             {users.map((u, i) => {
               const rank = (page - 1) * perPage + i + 1;
-
               const highestBadge = getHighestBadge(u.level);
               const BadgeComponent = highestBadge?.component;
               const isCurrentUser = Boolean(
@@ -84,12 +84,12 @@ export default function Leaderboard() {
                     {isCurrentUser && <span className="current-user-pill">You</span>}
                   </td>
                   <td>{u.city}</td>
-                  <td className='level-badge-cell'>
-                    <span className='level-text'>Lvl. {u.level}</span>
+                  <td className="level-badge-cell">
+                    <span className="level-text">Lvl. {u.level}</span>
                     {BadgeComponent && (
-                        <div className='badge-inline'>
-                            <BadgeComponent />
-                        </div>
+                      <div className="badge-inline">
+                        <BadgeComponent />
+                      </div>
                     )}
                   </td>
                   <td>{u.xp}</td>
@@ -102,7 +102,7 @@ export default function Leaderboard() {
 
       <div className="leaderboard-pagination">
         <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          onClick={() => setPage(p => Math.max(1, p - 1))}
           disabled={page === 1}
         >
           Prev
@@ -110,7 +110,12 @@ export default function Leaderboard() {
 
         <span>Page {page}</span>
 
-        <button onClick={() => setPage((p) => p + 1)}>Next</button>
+        <button
+          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+          disabled={page >= totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

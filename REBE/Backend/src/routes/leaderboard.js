@@ -18,9 +18,11 @@ const leaderboardRoutes = [
       const from = (page - 1) * perPage;
       const to = from + perPage - 1;
 
-      const { data, error } = await supabaseAdmin
+      const { data, error, count } = await supabaseAdmin
         .from('users')
-        .select('id, name, email, city, level, xp, image_path')
+        .select('id, name, email, city, level, xp, image_path', {
+          count: 'exact',
+        })
         .order('level', { ascending: false })
         .order('xp', { ascending: false })
         .range(from, to);
@@ -40,7 +42,7 @@ const leaderboardRoutes = [
         })
       );
 
-      return { users: usersWithResolvedPics, page, per_page: perPage };
+      return { users: usersWithResolvedPics, page, per_page: perPage, total: count, total_pages: Math.ceil(count / perPage) };
     },
   },
 ];
