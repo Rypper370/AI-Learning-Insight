@@ -1,18 +1,18 @@
 # AI Learning Insight
 
-Backend: Hapi + Supabase; Frontend: React + Vite; Model ML: ONNX via Node.
+Backend: Hapi + Supabase; Frontend: React + Vite; Model ML: TF to Node.
 
 ## Struktur Proyek (ringkas)
 - [REBE/Backend/src/server.js](REBE/Backend/src/server.js:17) — Bootstrap Hapi + CORS + registrasi rute.
 - [REBE/Backend/src/routes/auth.js](REBE/Backend/src/routes/auth.js:9) — Rute autentikasi (signup/login/profile/logout).
 - [REBE/Backend/src/routes/predictions.js](REBE/Backend/src/routes/predictions.js:5) — Endpoint inferensi & penyimpanan hasil model.
-- [REBE/Backend/src/routes/cities.js](REBE/Backend/src/routes/cities.js:134) — CRUD kota dan penugasan kota seimbang.
+- [REBE/Backend/src/routes/cities.js](REBE/Backend/src/routes/cities.js:134) — CRUD kota dan pembagian data kota ke user secara seimbang.
 - [REBE/Backend/src/routes/leaderboard.js](REBE/Backend/src/routes/leaderboard.js:6) — Leaderboard berlapis.
 - [REBE/Backend/src/config/supabase.js](REBE/Backend/src/config/supabase.js:1) — Inisialisasi klien Supabase (public & service).
 - [REBE/Backend/src/validators/schemas.js](REBE/Backend/src/validators/schemas.js:1) — Skema Zod untuk auth.
 - [REBE/Frontend/src/main.jsx](REBE/Frontend/src/main.jsx:1) — Entrypoint SPA Vite + React.
 - [REBE/Frontend/src/App.jsx](REBE/Frontend/src/App.jsx:1) — Shell aplikasi.
-- [ML/model_recommendation_final.json](ML/model_recommendation_final.json:1) — Konfigurasi/metadata model ONNX.
+- [ML/model_recommendation_final.json](ML/model_recommendation_final.json:1) — Konfigurasi/metadata model K-Means Classifier.
 
 ## Instalasi Backend
 1. Salin `.env.example` menjadi `.env` lalu isi:
@@ -51,7 +51,7 @@ Base URL default `http://localhost:3000` (lihat [server.js](REBE/Backend/src/ser
 - `POST /api/predict/save` — Body: `{ user_id, ...fitur }` → prediksi + simpan ke `user_learning_predictions` & update user.
 - `POST /api/predict/batch` — Body: `{ users: [{ user_id, total_submissions, avg_submission_rating, avg_exam_score, total_journeys_completed, avg_speed_ratio }] }` → prediksi batch.
 
-### Cities — [cities.js](REBE/Backend/src/routes/cities.js:134)
+### Cities — [cities.js](REBE/Backend/src/routes/cities.js:134) (Membuat Data Users menjadi lebih rapih dengan dummy data)
 - `POST /cities` — `{ name, type?, province? }` → tambah kota.
 - `POST /cities/bulk` — `{ cities: [...] }` → tambah banyak.
 - `POST /cities/seed` — Seed daftar kota Indonesia.
@@ -62,7 +62,7 @@ Base URL default `http://localhost:3000` (lihat [server.js](REBE/Backend/src/ser
 - `GET /cities/stats` — Statistik distribusi kota.
 
 ### Leaderboard — [leaderboard.js](REBE/Backend/src/routes/leaderboard.js:6)
-- `GET /api/leaderboard?per_page=30&page=1` — Leaderboard berpaginasi (urut level lalu xp), sertakan URL avatar terselesaikan.
+- `GET /api/leaderboard?per_page=30&page=1` — Leaderboard berpaginasi (urutan level lalu xp), sertakan URL avatar yang tersedia.
 
 ## Catatan Supabase
 Setel konfigurasi auth sesuai [REBE/Backend/supabase/migrations/readme.md](REBE/Backend/supabase/migrations/readme.md:1) sebelum impor migrasi Supabase.
