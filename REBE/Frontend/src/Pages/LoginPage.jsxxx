@@ -1,0 +1,17 @@
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LoginInput from "../components/LoginInput";
+
+function LoginPage(){
+    const navigate=useNavigate();
+
+    return(
+        <section className="login-page">
+            <h2>Login Form</h2>
+            <LoginInput login={onLoginHandler}/>
+            <p>Don't have a account? <Link to='/register'>Register here</Link>.</p>
+        </section>
+    )
+}
+
+export default LoginPage;

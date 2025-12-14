@@ -1,0 +1,17 @@
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import RegisterInput from "../components/RegisterInput";
+
+function RegisterPage(){
+    const navigate = useNavigate();
+
+    return(
+        <section className="register-page">
+            <h2>Register Form</h2>
+            <RegisterInput register={onRegisterHandler}/>
+            <p>Have a account? <Link to='/login'>Login Here</Link>.</p>
+        </section>
+    )
+}
+
+export default RegisterPage;

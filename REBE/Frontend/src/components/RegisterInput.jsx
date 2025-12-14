@@ -49,9 +49,9 @@ function RegisterInput({ register }) {
     return (
         <form onSubmit={onSubmitHandler} className="register-form">
             <label htmlFor="register-name">Name</label>
-            <input type="text" id="register-name" placeholder="testo" value={name} onChange={onNameChangeHandler} />
+            <input type="text" id="register-name" placeholder="Name" value={name} onChange={onNameChangeHandler} />
             <label htmlFor="register-email">Email</label>
-            <input type="email" id="register-email" placeholder="email@gmail.com" value={email} onChange={onEmailChangeHandler} />
+            <input type="email" id="register-email" placeholder="Email" value={email} onChange={onEmailChangeHandler} />
             {/* PASSWORD */}
             <label htmlFor="register-password">Password</label>
             <div className="password-wrapper">
