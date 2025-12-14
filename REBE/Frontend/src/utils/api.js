@@ -1,200 +1,157 @@
-// const BASE_URL = '';
-
-// // Dummy users database (simulasi backend)
-// const DUMMY_USERS = [
-//   {
-//     id: '1',
-//     name: 'John Doe',
-//     email: 'john@example.com',
-//     password: 'password123'
-//   },
-//   {
-//     id: '2',
-//     name: 'Jane Smith',
-//     email: 'jane@example.com',
-//     password: 'password123'
-//   }
-// ];
-
-// // simulasi delay
-// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// function getAccessToken() {
-//   return localStorage.getItem('accessToken');
-// }
-
-// function putAccessToken(accessToken) {
-//   return localStorage.setItem('accessToken', accessToken);
-// }
-
-// async function fetchWithToken(url, options = {}) {
-//   return fetch(url, {
-//     ...options,
-//     headers: {
-//       ...options.headers,
-//       Authorization: `Bearer ${getAccessToken()}`,
-//     },
-//   });
-// }
-
-// async function login({ email, password }) {
-//   const response = await fetch(`${BASE_URL}/login`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ email, password }),
-//   });
-
-//   const responseJson = await response.json();
-
-//   if (responseJson.status !== 'success') {
-//     alert(responseJson.message);
-//     return { error: true, data: null };
-//   }
-
-//   return { error: false, data: responseJson.data };
-// }
-
-// async function register({ name, email, password }) {
-//   const response = await fetch(`${BASE_URL}/register`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ name, email, password }),
-//   });
-
-//   const responseJson = await response.json();
-
-//   if (responseJson.status !== 'success') {
-//     alert(responseJson.message);
-//     return { error: true };
-//   }
-
-//   return { error: false };
-// }
-
-// async function getUserLogged() {
-//   const response = await fetchWithToken(`${BASE_URL}/users/me`);
-//   const responseJson = await response.json();
-
-//   if (responseJson.status !== 'success') {
-//     return { error: true, data: null };
-//   }
-
-//   return { error: false, data: responseJson.data };
-// }
-
-// export { getAccessToken, putAccessToken, login, register, getUserLogged };
-
-// Dummy users database (simulasi backend)
-const DUMMY_USERS = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    password: 'password123'
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    password: 'password123'
-  }
-];
-
-// Simulasi delay network
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 function getAccessToken() {
   return localStorage.getItem('accessToken');
 }
 
 function putAccessToken(accessToken) {
-  return localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('accessToken', accessToken);
 }
 
+async function fetchWithToken(url, options = {}) {
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  });
+}
+
+/** ============================
+ *  REAL LOGIN (Supabase backend)
+ *  ============================ */
 async function login({ email, password }) {
-  // Simulasi network delay
-  await delay(500);
+  const response = await fetch(`${BASE_URL}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
 
-  // Cari user di dummy database
-  const user = DUMMY_USERS.find(u => u.email === email && u.password === password);
+  const responseJson = await response.json();
 
-  if (!user) {
-    // alert('Email atau password salah!');
-    return { error: true, data: null };
-  }
-
-  // Generate dummy access token
-  const accessToken = `dummy-token-${user.id}-${Date.now()}`;
-
-  return { 
-    error: false, 
-    data: { 
-      accessToken,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email
-      }
-    } 
-  };
-}
-
-async function register({ name, email, password }) {
-  // Simulasi network delay
-  await delay(500);
-
-  // Cek apakah email sudah terdaftar
-  const existingUser = DUMMY_USERS.find(u => u.email === email);
-  
-  if (existingUser) {
-    // alert('Email sudah terdaftar!');
+  if (!response.ok) {
     return { error: true };
   }
 
-  // Tambahkan user baru ke dummy database
-  const newUser = {
-    id: String(DUMMY_USERS.length + 1),
-    name,
-    email,
-    password
-  };
-  
-  DUMMY_USERS.push(newUser);
-  
-  // alert('Registrasi berhasil! Silakan login.');
+  const token = responseJson.session?.access_token;
+
+  if (!token) {
+    return { error: true };
+  }
+
+  putAccessToken(token);
+
+  return { error: false, accessToken: token };
+}
+
+/** ============================
+ *  REAL REGISTER
+ *  ============================ */
+async function register({ name, email, password }) {
+  const res = await fetch(`${BASE_URL}/auth/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password }),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    return { error: true };
+  }
+
   return { error: false };
 }
 
+/** ============================
+ *  REAL FETCH LOGGED USER
+ *  ============================ */
 async function getUserLogged() {
-  // Simulasi network delay
-  await delay(300);
+  const response = await fetch(`${BASE_URL}/auth/me-full`, {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+      'Content-Type': 'application/json',
+    },
+  });
 
-  const token = getAccessToken();
-  
-  if (!token) {
-    return { error: true, data: null };
+  const responseJson = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseJson.error || 'Unauthorized');
   }
 
-  // Extract user id dari token (format: dummy-token-{id}-{timestamp})
-  const userId = token.split('-')[2];
-  const user = DUMMY_USERS.find(u => u.id === userId);
-
-  if (!user) {
-    return { error: true, data: null };
-  }
-
-  return { 
-    error: false, 
-    data: {
-      id: user.id,
-      name: user.name,
-      email: user.email
-    }
+  return {
+    error: false,
+    data: responseJson.data,
   };
 }
 
-export { getAccessToken, putAccessToken, login, register, getUserLogged };
+/** ============================
+ *  PREDICTION ENDPOINTS
+ *  ============================ */
+async function getModelInfo() {
+  const res = await fetch(`${BASE_URL}/api/model/info`);
+  const json = await res.json();
+
+  if (!res.ok) {
+    return { error: true, message: json.error || 'Failed to load model info' };
+  }
+
+  return { error: false, data: json };
+}
+
+async function predictLearning(payload) {
+  const res = await fetch(`${BASE_URL}/api/predict`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok || json.success === false) {
+    return { error: true, message: json.error || 'Prediction failed' };
+  }
+
+  return { error: false, data: json.data };
+}
+
+async function predictAndSave(payload) {
+  const res = await fetchWithToken(`${BASE_URL}/api/predict/save`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok || json.success === false) {
+    return { error: true, message: json.error || 'Prediction save failed' };
+  }
+
+  return { error: false, data: json.data };
+}
+
+async function getMyPrediction() {
+  const res = await fetchWithToken(`${BASE_URL}/api/predict/me`);
+  const json = await res.json();
+
+  if (!res.ok || json.success === false) {
+    return { error: true, message: json.error || 'Failed to load prediction' };
+  }
+
+  return { error: false, data: json.data };
+}
+
+export {
+  getAccessToken,
+  putAccessToken,
+  login,
+  register,
+  getUserLogged,
+  getModelInfo,
+  predictLearning,
+  predictAndSave,
+  getMyPrediction,
+};

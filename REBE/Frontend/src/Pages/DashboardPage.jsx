@@ -1,0 +1,48 @@
+import ProfilePicture from '../components/Dashboard/ProfilePicture';
+import LevelBar from '../components/Dashboard/LevelBar';
+import LevelProgressButton from '../components/Dashboard/LevelProgressButton';
+import '../styles/dashboard.css';
+import LearningInsightContainer from '../components/Dashboard/LearningInsightContainer';
+import Leaderboard from '../components/Dashboard/Leaderboard';
+
+export default function DashboardPage({ profile, onLogout }) {
+  if (!profile) return null;
+
+  return (
+    <div className="dashboard-container">
+      <aside className="side-container">
+        <h2 className="headings-1">Welcome, {profile.name}!</h2>
+        <ProfilePicture size={128} />
+        <p className="focus-font">
+          Asal Kota:{' '}
+          <span className="focus-font-heavierer">{profile.city}</span>
+        </p>
+        <p className="focus-font">
+          Email: <span className="hyperlink-style">{profile.email}</span>
+        </p>
+        <p className="focus-font">
+          Learner Type:{' '}
+          <span>{profile.learning_style ?? 'Not analyzed yet!'}</span>
+        </p>
+        <p className="focus-font">
+          Level: <span>{profile.level}</span>
+        </p>
+        <LevelBar value={profile.xp} max={profile.required_xp} />
+        <LevelProgressButton profile={profile} />
+        <button onClick={onLogout} className="button-hazard">
+          Logout
+        </button>
+      </aside>
+      <main className="main-container">
+        <div className="insight-subcontainer">
+          <h3>AI Learning Insight</h3>
+          <LearningInsightContainer />
+        </div>
+
+        <div className="leaderboard-subcontainer">
+          <Leaderboard />
+        </div>
+      </main>
+    </div>
+  );
+}
