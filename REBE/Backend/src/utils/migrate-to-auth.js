@@ -1,3 +1,7 @@
+/*
+Migrate to Auth. If you choose to use Supabase AUTH, then this script is required to COPY from the public.users table to auth.users table. Which is how we implemented it btw.
+*/
+
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
@@ -86,3 +90,5 @@ migrate().catch(err => {
   console.error('Migration failed:', err);
   process.exit(1);
 });
+
+module.exports = { migrate }

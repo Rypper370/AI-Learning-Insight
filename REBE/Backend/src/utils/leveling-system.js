@@ -363,3 +363,5 @@ async function rebuildAllUsersLevelAndExperience() {
   console.log('USERS table fully synced with users_level_tracker.');
   console.log('Batch rebuild complete.');
 }
+
+module.exports = { updateUsersLevelAndExperience, rebuildAllUsersLevelAndExperience}

@@ -55,6 +55,8 @@ async function importCSV(filePath) {
   });
 }
 
+// Import the dataset from the provided link in the Project Brief. Explicitly not shared on GitHub.
+// You can run this AFTER init.js, It is important for the prediction model.
 const csvPath = path.resolve(__dirname, '../models/dataset.csv');
 
 (async () => {

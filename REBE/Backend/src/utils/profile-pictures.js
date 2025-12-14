@@ -1,3 +1,12 @@
+/*
+  Profile Pictures.
+
+  This is our implementation so that users are rendered with profile pictures.
+  You can use this if you don't have a robust profile picture system setup yet.
+  KEEP IN MIND IT IS PURELY OPTIONAL! But it does look nice though...
+*/
+
+
 const {
   supabase,
   supabaseBucket,
