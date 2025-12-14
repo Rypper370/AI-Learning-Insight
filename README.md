@@ -57,7 +57,7 @@ Dashboard ini ditujukan untuk:
 ### Backend
 - Node.js
 - Hapi Framework
-- JWT Authentication
+- JWT Authentication with Supabase Auth
 
 ### Database
 - PostgreSQL
@@ -125,14 +125,18 @@ Base URL:
 ```
 
 ### Authentication
-- `POST /authentications/register` – Registrasi user
-- `POST /authentications/login` – Login
-- `PUT /authentications/refresh` – Refresh token
-- `DELETE /authentications/logout` – Logout
+- `POST /auth/signup` – Registrasi user
+- `POST /auth/login` – Login
+- `GET /auth/me` - Mengembalikan data Users dari auth.users di DB.
+- `GET /auth/me-full` – Mengembalikan data Users sebagai 'Profile' di public.users di DB. 
 
-### Users
-- `POST /users` – Tambah user
-- `GET /users/{id}` – Detail user
+### Leaderboard
+- `GET /api/leaderboard` - Mengambil data untuk ditampilkan ke Leaderboard.
+
+### Predictions
+- `GET /api/model/info` - Mendapatkan info dari model.
+- `GET /api/predict/me` - Mendapatkan data learning type dari user dari database.
+- `POST /api/predict/save` - Melakukan prediksi baru dan menyimpannya ke database.
 
 > Endpoint progres, insight, dan laporan akan dikembangkan pada tahap selanjutnya.
 
@@ -171,6 +175,8 @@ ACCESS_TOKEN_AGE=Your_ACCESS_TOKEN_AGE
 
 ### 4. Menjalankan Aplikasi
 
+**Change directory ke subdir masing-masing baik itu REBE/Frontend atau REBE/Backend terlebih dahulu!**
+
 **Frontend**
 ```bash
 npm run dev
@@ -178,7 +184,7 @@ npm run dev
 
 **Backend**
 ```bash
-npm run start:dev
+npm run start
 ```
 
 ---
@@ -187,23 +193,22 @@ npm run start:dev
 
 ```
 ML/
-├── user_insights_labeled.xlsx
+├── Dataset
+├── Machine Learning Model
+├── Notebook
 
 REBE/
 ├── Backend/
 │   ├── src/
 │   │   ├── api/
-│   │   │   ├── authentications/
-│   │   │   └── users/
-│   │   ├── exceptions/
-│   │   ├── services/postgres/
-│   │   ├── tokenize/
-│   │   ├── validator/
-│   │   └── server.js
-│   ├── .env.example
-│   ├── eslint.config.js
-│   ├── package.json
-│
+│   │   │   ├── config/
+|   |   |   ├── routes/
+|   |   |   ├── utils/
+|   |   |   ├── validators/
+│   │   │   └── server.js
+│   │   ├── supabase/
+│   │   ├── .env.example
+│   │   └── package.json
 ├── Frontend/
 │   ├── public/
 │   ├── src/
