@@ -2,6 +2,8 @@
   Profile Pictures.
 
   This is our implementation so that users are rendered with profile pictures.
+  It is done by storing images inside the Supabase Project's Object Storage.
+  See commented lines for extra information.
   You can use this if you don't have a robust profile picture system setup yet.
   KEEP IN MIND IT IS PURELY OPTIONAL! But it does look nice though...
 */
@@ -14,8 +16,8 @@ const {
   supabaseAdmin,
 } = require('../config/supabase');
 
-const BUCKET = supabaseBucket;
-const SHARED_PATH = supabaseSharedProfilePicturesPath;
+const BUCKET = supabaseBucket; // Root directory dari bucket
+const SHARED_PATH = supabaseSharedProfilePicturesPath; // Path ke directory yang ingin digunakan untuk menyimpan profile picture.
 
 function getPublicUrl(path) {
   return `https://${process.env.SUPABASE_URL.replace(
@@ -74,7 +76,7 @@ async function randomizeAllUserProfilePictures() {
 
     const { error: updateErr } = await supabaseAdmin
       .from('users')
-      .update({ image_path: randomKey }) // correct column
+      .update({ image_path: randomKey })
       .eq('id', user.id);
 
     if (updateErr) {

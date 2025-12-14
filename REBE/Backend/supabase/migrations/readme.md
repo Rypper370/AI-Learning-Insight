@@ -1,6 +1,6 @@
 # Supabase Project Setup
 
-Change this in your Supabase project settings! Else it won't work!
+Change this in your Supabase project settings! Or else it won't work!
 
 ## User Signups
 
